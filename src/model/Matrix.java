@@ -16,7 +16,7 @@ public class Matrix {
 
 	public int column() {
 		int reference = (int) Math.sqrt(n);
-		if (reference + row() == n) {
+		if (reference * row() == n) {
 			return (int) Math.sqrt(n);
 		} else {
 			return (int) Math.sqrt(n) + 1;
@@ -46,6 +46,7 @@ public class Matrix {
 						m[i][j].setPrime(true);
 					}
 				}
+				number++;
 			}
 		}
 	}
