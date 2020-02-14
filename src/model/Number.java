@@ -6,7 +6,7 @@ public class Number {
 	private int value;
 
 	public Number() {
-		this.isPrime = false;
+		this.isPrime = true;
 		this.value = 0;
 	}
 

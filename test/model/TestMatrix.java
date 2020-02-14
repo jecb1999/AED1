@@ -27,5 +27,12 @@ class TestMatrix {
 		int actual = (a.getNumbers().length)*(a.getNumbers()[0].length);
 		assertEquals(30, actual);
 	}
+	
+	@Test
+	void b() {
+		Matrix a = new Matrix(100, 11);
+		a.primeNumber1(9);
+		a.print();
+	}
 
 }
