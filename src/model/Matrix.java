@@ -45,6 +45,8 @@ public class Matrix {
 					if (primeNumber(number) == true) {
 						m[i][j].setPrime(true);
 					}
+				}else {
+					m[i][j] = new Number();
 				}
 				number++;
 			}
