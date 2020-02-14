@@ -13,6 +13,14 @@ public class Matrix {
 		fillMatrix();
 	}
 	
+	
+	
+	public Number[][] getNumbers() {
+		return numbers;
+	}
+
+
+
 	//generate row matrix
 	public int row() {
 		return (int) Math.sqrt(number);
