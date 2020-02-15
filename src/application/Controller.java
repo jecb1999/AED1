@@ -87,10 +87,9 @@ public class Controller implements Initializable {
 
 	public void actionButton1() {
 		bt1.setOnAction(e -> {
-			createMatriz(1);
-			fillGPane();
+			createMatriz(1);		
 		});
-
+		
 	}
 
 	public void actionButton2() {
@@ -102,9 +101,9 @@ public class Controller implements Initializable {
 	}
 
 	public void actionButton3() {
+
 		bt3.setOnAction(e -> {
 			createMatriz(3);
-
 		});
 	}
 
@@ -129,30 +128,6 @@ public class Controller implements Initializable {
 					}
 				}
 			}
-
-		
-
-//	new Thread(() ->{
-//		for (int i = 0; i < matriz.getNumbers().length; i++) {
-//			for (int j = 0; j < matriz.getNumbers()[0].length; j++) {
-//				if (matriz.getNumbers()[i][j] != null) {
-//					Button b = new Button(matriz.getNumbers()[i][j].getValue() + "");
-//					b.setDisable(true);
-//					if (matriz.getNumbers()[i][j].isPrime()) {
-//						b.setStyle("-fx-background-color :LAWNGREEN");
-//					} else {
-//						b.setStyle("-fx-background-color :RED");
-//					}
-//					gPane.add(b, j, i);
-//						s.setScene(sc);
-//						s.show(); 
-//						fn.start();
-//				}
-
-//			}
-//		}
-//	}).start();
-//	
 
 }
 }

@@ -34,5 +34,12 @@ class TestMatrix {
 		a.eristotenes();
 		a.print();
 	}
+	
+	@Test
+	void c() {
+		Matrix a = new Matrix(10, 2);
+		a.method3();
+		a.print();
+	}
 
 }

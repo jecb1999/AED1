@@ -63,8 +63,8 @@ public class Matrix {
 					if (numbers[i][j].isPrime()) {
 						int conta = 2;
 						int m = 0;
-						for (int j2 = 0; j2 < numbers.length && m < number; j2++) {
-							for (int k = 0; k < numbers[0].length && m < number; k++) {
+						for (int j2 = 0; j2 < numbers.length && m <= number; j2++) {
+							for (int k = 0; k < numbers[0].length && m <= number; k++) {
 								m = (numbers[i][j].getValue() * conta);
 								if (numbers[j2][k].getValue() == m) {
 									numbers[j2][k].setPrime(false);
@@ -79,8 +79,20 @@ public class Matrix {
 	}
 	
 	//method 3
-	
-	//TODO
+	public boolean method3(int n) {
+		boolean result = true;
+		if(n !=2 && n%2== 0) {
+			result = false;
+		}
+		else{
+			for (int i = 3; i*i <= n; i+=2) {
+				if(n%i == 0) {					
+					result = false;
+				}
+			}
+		}
+		return result;
+	}
 
 //	generate values matrix
 	public void fillMatrix() {
@@ -105,7 +117,8 @@ public class Matrix {
 			eristotenes();
 			break;
 		case 3:
-			
+			method3();
+			break;
 		}
 	}
 
@@ -114,8 +127,21 @@ public class Matrix {
 			for (int k = 0; k < numbers[0].length; k++) {
 				if (numbers[i][k] != null) {
 					int val = numbers[i][k].getValue();
-					if (primeNumber1(val) == true) {
-						numbers[i][k].setPrime(true);
+					if (primeNumber1(val) == false) {
+						numbers[i][k].setPrime(false);
+					}
+				}
+			}
+		}
+	}
+	
+	public void method3() {
+		for (int i = 0; i < numbers.length; i++) {
+			for (int j = 0; j < numbers[0].length; j++) {
+				if(numbers[i][j] != null) {
+					int val = numbers[i][j].getValue();
+					if(method3(val)== false) {
+						numbers[i][j].setPrime(false);
 					}
 				}
 			}
