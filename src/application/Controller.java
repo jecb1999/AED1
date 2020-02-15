@@ -69,6 +69,7 @@ public class Controller implements Initializable{
 	public void actionButton1() {
 		bt1.setOnAction(e->{
 			createMatriz(1);
+			gPane.getChildren().clear();
 			fillGPane();			
 		});
 		
@@ -76,12 +77,14 @@ public class Controller implements Initializable{
 	public void actionButton2() {
 		bt2.setOnAction(e->{
 			createMatriz(2);	
+			gPane.getChildren().clear();
 			fillGPane();
 		});
 	}
 	public void actionButton3() {
 		bt3.setOnAction(e->{
 			createMatriz(3);			
+			gPane.getChildren().clear();
 			fillGPane();			
 		});
 	}
