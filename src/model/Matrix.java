@@ -1,63 +1,3 @@
-<<<<<<< HEAD
-package model;
-
-public class Matrix {
-
-	private int n;
-	private Number[][] m;
-
-	public Matrix(int n) {
-		this.n = n;
-		m = new Number[row()][column()];
-	}
-
-	public int row() {
-		return (int) Math.sqrt(n);
-	}
-
-	public int column() {
-		int reference = (int) Math.sqrt(n);
-		if (reference * row() == n) {
-			return (int) Math.sqrt(n);
-		} else {
-			return (int) Math.sqrt(n) + 1;
-		}
-	}
-	
-	public boolean primeNumber(int n) {
-		if (n <= 1) {
-			return false;
-		}
-		for (int i = 2; i < n; i++) {
-			if (n % i == 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public void fillMatrix() {
-		int number = 1;
-		for (int i = 0; i < m.length; i++) {
-			for (int j = 0; j < m[i].length; j++) {
-				if (number <= n) {
-					m[i][j] = new Number();
-					m[i][j].setValue(number);
-					if (primeNumber(number) == true) {
-						m[i][j].setPrime(true);
-					}
-				}else {
-					m[i][j] = new Number();
-				}
-				number++;
-			}
-		}
-	}
-
-
-
-}
-=======
 package model;
 
 public class Matrix {
@@ -71,6 +11,7 @@ public class Matrix {
 		this.option = o;
 		numbers = new Number[row()][column()];
 		fillMatrix();
+		option(o);
 	}
 	
 	
@@ -109,31 +50,30 @@ public class Matrix {
 				found = true;
 			}
 		}
-		System.out.println(isPrime);
 		return isPrime;
 	}
 	
 	//method 2
 	
 	public void eristotenes() {
-		int stop = numbers.length * numbers[0].length;
 		for (int i = 0; i < numbers.length; i++) {
-			for (int j = 1; j < numbers[0].length; j++) {				
-				if(numbers[i][j].isPrime()) {
-					int conta = 2;
-					int m = 0;
-					for (int j2 = 0; j2< numbers.length && m <stop ; j2++) {
-						for (int k = 0;k<numbers[0].length && m<stop; k++) {
-							m = (numbers[i][j].getValue()*conta);
-								if(numbers[j2][k].getValue() == m ) {
+			for (int j = 1; j < numbers[0].length; j++) {
+				if (numbers[i][j] != null) {
+					if (numbers[i][j].isPrime()) {
+						int conta = 2;
+						int m = 0;
+						for (int j2 = 0; j2 < numbers.length && m < number; j2++) {
+							for (int k = 0; k < numbers[0].length && m < number; k++) {
+								m = (numbers[i][j].getValue() * conta);
+								if (numbers[j2][k].getValue() == m) {
 									numbers[j2][k].setPrime(false);
 									conta++;
 								}
+							}
 						}
 					}
 				}
 			}
-			
 		}
 	}
 	
@@ -159,8 +99,10 @@ public class Matrix {
 		switch(option) {
 		case 1:
 			method1();
+			break;
 		case 2:
-			
+			eristotenes();
+			break;
 		case 3:
 			
 		}
@@ -169,9 +111,11 @@ public class Matrix {
 	public void method1() {
 		for (int i = 0; i < numbers.length; i++) {
 			for (int k = 0; k < numbers[0].length; k++) {
-				int val = numbers[i][k].getValue();
-				if (primeNumber1(val) == true) {
-					numbers[i][k].setPrime(true);
+				if (numbers[i][k] != null) {
+					int val = numbers[i][k].getValue();
+					if (primeNumber1(val) == true) {
+						numbers[i][k].setPrime(true);
+					}
 				}
 			}
 		}
@@ -181,18 +125,19 @@ public class Matrix {
 		String a = "";
 		for (int i = 0; i < numbers.length; i++) {
 			for (int j = 0; j < numbers[0].length; j++) {
-				if(numbers[i][j].isPrime()) {					
-					a+= numbers[i][j].getValue()+" ";
+				if (numbers[i][j] != null) {
+					if (numbers[i][j].isPrime()) {
+						a += numbers[i][j].getValue() + " ";
+					}
+					if (j == numbers[0].length - 1) {
+						a += "\n";
+					}
+
 				}
-				if(j == numbers[0].length-1) {
-					a += "\n";
-				}
-				
 			}
-			
+
 		}
 		System.out.println(a);
 	}
 			
 }
->>>>>>> branch 'master' of https://github.com/jecb1999/AED1.git

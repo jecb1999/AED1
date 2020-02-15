@@ -30,8 +30,8 @@ class TestMatrix {
 	
 	@Test
 	void b() {
-		Matrix a = new Matrix(100, 11);
-		a.primeNumber1(9);
+		Matrix a = new Matrix(10, 2);
+		a.eristotenes();
 		a.print();
 	}
 
