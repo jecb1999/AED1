@@ -29,17 +29,24 @@ class TestMatrix {
 	}
 	
 	@Test
+	void a (){
+		Matrix a = new Matrix(10, 1);
+		String actual = a.print();
+		assertEquals("2 3 "+"\n"+"5 7 "+"\n", actual);
+	}
+	
+	@Test
 	void b() {
 		Matrix a = new Matrix(10, 2);
-		a.eristotenes();
-		a.print();
+		String actual = a.print();
+		assertEquals("1 2 3 "+"\n"+"5 7 "+"\n"+"10 ", actual);
 	}
 	
 	@Test
 	void c() {
-		Matrix a = new Matrix(10, 2);
-		a.method3();
-		a.print();
+		Matrix a = new Matrix(10, 3);
+		String actual = a.print();
+		assertEquals("1 2 3 "+"\n"+"5 7 "+"\n", actual);
 	}
 
 }

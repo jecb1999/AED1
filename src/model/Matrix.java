@@ -63,8 +63,8 @@ public class Matrix {
 					if (numbers[i][j].isPrime()) {
 						int conta = 2;
 						int m = 0;
-						for (int j2 = 0; j2 < numbers.length && m <= number; j2++) {
-							for (int k = 0; k < numbers[0].length && m <= number; k++) {
+						for (int j2 = 0; j2 < numbers.length && m < number; j2++) {
+							for (int k = 0; k < numbers[0].length && m < number; k++) {
 								m = (numbers[i][j].getValue() * conta);
 								if (numbers[j2][k].getValue() == m) {
 									numbers[j2][k].setPrime(false);
@@ -148,7 +148,7 @@ public class Matrix {
 		}
 	}
 	
-	public void print() {
+	public String print() {
 		String a = "";
 		for (int i = 0; i < numbers.length; i++) {
 			for (int j = 0; j < numbers[0].length; j++) {
@@ -164,7 +164,7 @@ public class Matrix {
 			}
 
 		}
-		System.out.println(a);
+		return a;
 	}
 			
 }
