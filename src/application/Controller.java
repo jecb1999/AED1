@@ -3,6 +3,7 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -104,7 +105,6 @@ public class Controller implements Initializable {
 //							noEnd = true;
 						}
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -155,8 +155,14 @@ public class Controller implements Initializable {
 							tsd.setLayoutY(globalI);
 							tsd.setText(t);
 						}
-						grilla.getChildren().add(tsd);
-						globalJ += 50;
+						
+						Platform.runLater(new Runnable() {
+						      public void run() {
+						  		grilla.getChildren().add(tsd);
+								globalJ += 50;
+						      }
+						  });
+				
 					} else {
 						exit = true;
 						if(matrizdraw[i][j] != null) {
