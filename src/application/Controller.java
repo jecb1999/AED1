@@ -77,19 +77,7 @@ public class Controller implements Initializable {
 	public void createMatriz(int option) {
 		int num = Integer.parseInt(tx.getText());
 		matriz = new Matrix(num, option);
-//		new Thread() {
-//			public void run() {
-//				try {
-//					while (!noEnd) {
-//						sleep(1000);
-//						System.out.println("si");
-//					}
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//
-//		}.start();
+
 	}
 
 	public void actionButton1() {
@@ -119,7 +107,22 @@ public class Controller implements Initializable {
 	public void actionButton2() {
 		bt2.setOnAction(e -> {
 			createMatriz(2);
+			new Thread() {
+				public void run() {
+					try {
+						while (!noEnd) {
+							sleep(1000);
+							System.out.println("si");
+							fillGpane3();
+//							noEnd = true;
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 
+				}
+
+			}.start();
 		});
 
 	}
@@ -128,6 +131,22 @@ public class Controller implements Initializable {
 
 		bt3.setOnAction(e -> {
 			createMatriz(3);
+			new Thread() {
+				public void run() {
+					try {
+						while (!noEnd) {
+							sleep(1000);
+							System.out.println("si");
+							fillGpane3();
+//							noEnd = true;
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+				}
+
+			}.start();
 		});
 	}
 
