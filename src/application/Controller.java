@@ -6,10 +6,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
@@ -18,7 +21,8 @@ import model.Number;
 
 public class Controller implements Initializable {
 	private Matrix matriz;
-	private Text gPane;
+	private Text text;
+	private GridPane gpane;
 	private Button bt1;
 	private Button bt2;
 	private Button bt3;
@@ -26,17 +30,23 @@ public class Controller implements Initializable {
 	private TextField tx;
 	private Stage s;
 	private Scene sc;
+	private int globalI;
+	private int globalJ;
+	private boolean noEnd;
+	private AnchorPane grilla;
 
 	public Controller(Stage s) {
 		this.s = s;
 		bt1 = new Button("method 1");
-
+		grilla = new AnchorPane();
 		bt2 = new Button("method 2");
-
+		globalI = 0;
+		globalJ = 0;
 		bt3 = new Button("method 3");
-
+		noEnd = false;
+		gpane = new GridPane();
 		root = new VBox(2);
-		gPane = new Text();
+		text = new Text();
 		actionButton1();
 		actionButton2();
 		actionButton3();
@@ -57,37 +67,51 @@ public class Controller implements Initializable {
 		HBox hv = new HBox();
 		hv.getChildren().addAll(bt1, bt2, bt3);
 		vb2.getChildren().addAll(title, tx, text, hv);
-		root.getChildren().addAll(vb2, gPane);
+		root.getChildren().addAll(vb2, grilla);
 		sc = new Scene(root);
 		s.setScene(sc);
 		s.show();
 
 	}
-
 	public void createMatriz(int option) {
 		int num = Integer.parseInt(tx.getText());
 		matriz = new Matrix(num, option);
-		new Thread() {
-			public void run() {
-				try {
-					boolean noEnd = true;
-					while (noEnd) {
-						sleep(1000);
-						fillGPane();
-					}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		}.start();
+//		new Thread() {
+//			public void run() {
+//				try {
+//					while (!noEnd) {
+//						sleep(1000);
+//						System.out.println("si");
+//					}
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//
+//		}.start();
 	}
 
 	public void actionButton1() {
 		bt1.setOnAction(e -> {
-			createMatriz(1);		
+			createMatriz(1);
+			new Thread() {
+				public void run() {
+					try {
+						while (!noEnd) {
+							sleep(1000);
+							System.out.println("si");
+							fillGpane3();
+//							noEnd = true;
+						}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+
+			}.start();
+			
 		});
 		
 	}
@@ -107,27 +131,84 @@ public class Controller implements Initializable {
 		});
 	}
 
-	public void fillGPane() {
+	public void fillGpane3() {
+//		grilla.getChildren().clear();
 		Number[][] matrizdraw = matriz.getNumbers();
 		boolean exit = false;
-		for (int i = 0; i < matrizdraw.length && exit == false; i++) {
-			for (int j = 0; j < matrizdraw[0].length && exit == false; j++) {
-					if (matrizdraw[i][j] != null &&!matrizdraw[i][j].getDraw()) {
-						if(j == matrizdraw[0].length - 1) {
-							if(matrizdraw[i][j].isPrime()){
-								gPane.setStyle("-fx-text-fill: red");
-								gPane.setText(gPane.getText()+matrizdraw[i][j].getValue() + "\n");
-							}else {
-								gPane.setText(gPane.getText()+matrizdraw[i][j].getValue() + "\n");
-							}
-						}else {
-							gPane.setText(gPane.getText()+matrizdraw[i][j].getValue() + "  ");
+		matrizdraw[0][0].setDraw(true);
+		for (int i = 0; i < matrizdraw.length && !exit; i++) {
+			for (int j = 0; j < matrizdraw[0].length && !exit; j++) {
+				Label tsd = new Label();
+				String t = "";
+				if (matrizdraw[i][j] != null) {
+					if (matrizdraw[i][j].getDraw() == true) {
+						if (matrizdraw[i][j].isPrime()) {
+							t += matrizdraw[i][j].getValue();
+							tsd.setTextFill(Color.LAWNGREEN);
+							tsd.setLayoutX(globalJ);
+							tsd.setLayoutY(globalI);
+							tsd.setText(t);
+						} else {
+							t += matrizdraw[i][j].getValue();
+							tsd.setTextFill(Color.RED);
+							tsd.setLayoutX(globalJ);
+							tsd.setLayoutY(globalI);
+							tsd.setText(t);
 						}
-						matrizdraw[i][j].setDraw(true);
+						grilla.getChildren().add(tsd);
+						globalJ += 50;
+					} else {
 						exit = true;
+						if(matrizdraw[i][j] != null) {
+							matrizdraw[i][j].setDraw(true);
+						}
 					}
 				}
 			}
+			globalJ = 0;
+//			globalI += 50;
+		}
+	}
+	
+//	funciona sin hilo
+	public void fillGpane2() {
+		Number[][] matrizdraw = matriz.getNumbers();
+		for (int i = 0; i < matrizdraw.length; i++) {
+			for (int j = 0; j < matrizdraw[0].length; j++) {
+				Label tsd = new Label();
+				String t = "";
+				if (matrizdraw[i][j] != null ) {
+					if (matrizdraw[i][j].isPrime()) {
+						t += matrizdraw[i][j].getValue();
+						tsd.setTextFill(Color.LAWNGREEN);
+						tsd.setLayoutX(globalJ);
+						tsd.setLayoutY(globalI);
+						tsd.setText(t);
+					} else {
+						t += matrizdraw[i][j].getValue();
+						tsd.setTextFill(Color.RED);
+						tsd.setLayoutX(globalJ);
+						tsd.setLayoutY(globalI);
+						tsd.setText(t);
+					}
+				}
+				grilla.getChildren().add(tsd);
+				globalJ += 50; 
+				try {
+					Thread.sleep(1000);
+					System.out.println("v");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			globalJ = 0; 
+			globalI += 50;
+		}
+	}
+}
 
-}
-}
+
+
+	
+
