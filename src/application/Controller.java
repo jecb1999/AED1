@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import model.*;
 import model.Number;
 
-
 public class Controller implements Initializable {
 	private Matrix matriz;
 	private Text text;
@@ -69,11 +68,12 @@ public class Controller implements Initializable {
 		hv.getChildren().addAll(bt1, bt2, bt3);
 		vb2.getChildren().addAll(title, tx, text, hv);
 		root.getChildren().addAll(vb2, grilla);
-		sc = new Scene(root);
+		sc = new Scene(root, 600, 600);
 		s.setScene(sc);
 		s.show();
 
 	}
+
 	public void createMatriz(int option) {
 		int num = Integer.parseInt(tx.getText());
 		matriz = new Matrix(num, option);
@@ -111,9 +111,9 @@ public class Controller implements Initializable {
 				}
 
 			}.start();
-			
+
 		});
-		
+
 	}
 
 	public void actionButton2() {
@@ -145,37 +145,36 @@ public class Controller implements Initializable {
 						if (matrizdraw[i][j].isPrime()) {
 							t += matrizdraw[i][j].getValue();
 							tsd.setTextFill(Color.LAWNGREEN);
-							tsd.setLayoutX(globalJ);
-							tsd.setLayoutY(globalI);
 							tsd.setText(t);
 						} else {
 							t += matrizdraw[i][j].getValue();
 							tsd.setTextFill(Color.RED);
-							tsd.setLayoutX(globalJ);
-							tsd.setLayoutY(globalI);
 							tsd.setText(t);
 						}
-						
+						//====================================
+						//====================================
+						tsd.setLayoutX(globalJ + (20 * j));
+						tsd.setLayoutY(globalI + (20 * i));
+
 						Platform.runLater(new Runnable() {
-						      public void run() {
-						  		grilla.getChildren().add(tsd);
-								globalJ += 50;
-						      }
-						  });
-				
+							public void run() {
+								
+								grilla.getChildren().add(tsd);
+							}
+						});
+						//====================================
+						//====================================
 					} else {
 						exit = true;
-						if(matrizdraw[i][j] != null) {
+						if (matrizdraw[i][j] != null) {
 							matrizdraw[i][j].setDraw(true);
 						}
 					}
 				}
 			}
-			globalJ = 0;
-//			globalI += 50;
 		}
 	}
-	
+
 //	funciona sin hilo
 	public void fillGpane2() {
 		Number[][] matrizdraw = matriz.getNumbers();
@@ -183,7 +182,7 @@ public class Controller implements Initializable {
 			for (int j = 0; j < matrizdraw[0].length; j++) {
 				Label tsd = new Label();
 				String t = "";
-				if (matrizdraw[i][j] != null ) {
+				if (matrizdraw[i][j] != null) {
 					if (matrizdraw[i][j].isPrime()) {
 						t += matrizdraw[i][j].getValue();
 						tsd.setTextFill(Color.LAWNGREEN);
@@ -199,7 +198,7 @@ public class Controller implements Initializable {
 					}
 				}
 				grilla.getChildren().add(tsd);
-				globalJ += 50; 
+				globalJ += 50;
 				try {
 					Thread.sleep(1000);
 					System.out.println("v");
@@ -208,13 +207,8 @@ public class Controller implements Initializable {
 					e.printStackTrace();
 				}
 			}
-			globalJ = 0; 
+			globalJ = 0;
 			globalI += 50;
 		}
 	}
 }
-
-
-
-	
-
