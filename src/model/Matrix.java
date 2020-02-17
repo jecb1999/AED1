@@ -25,7 +25,7 @@ public class Matrix {
 
 	//generate row matrix
 	public int row() {
-		return (int) Math.sqrt(number);
+		return (int) Math.round(Math.sqrt(number));
 	}
 	
 	//generate column matrix
